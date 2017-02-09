@@ -24,6 +24,7 @@ services:
     image: chronograf:1.0.0-rc1
     volumes:
       - ./data/chronograf:/var/lib/chronograf
+      - ./etc/chronograf.conf:/etc/chronograf/chronograf.conf:ro
     ports:
       - "10000:10000"
     links:
@@ -33,7 +34,7 @@ services:
     image: kapacitor:1.0.0-rc1
     environment:
       KAPACITOR_HOSTNAME: kapacitor
-      KAPACITOR_INFLUXDB_0_URLS_0: http://influxdb:8086
+      KAPACITOR_INFLUXDB_0_URLS_0: http://192.168.99.100:8086
     volumes:
       - ./data/kapacitor:/var/lib/kapacitor
     links:
@@ -56,6 +57,6 @@ services:
     image: kapacitor:1.0.0-rc1
     entrypoint: bash
     environment:
-      KAPACITOR_URL: http://kapacitor:9092
+      KAPACITOR_URL: http://192.168.99.100:9092
     links:
       - kapacitor
